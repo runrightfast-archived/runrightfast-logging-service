@@ -1,13 +1,12 @@
 {
 	"name":"runrightfast-sandbox",
 	"version":"0.0.1",
-	"description":"RunRightFast sandbox project, which is used for experimentation",
+	"description":"RunRightFast Logging Service",
 	"repository":{
 		"type":"git",
-		"url":"https://github.com/runrightfast/runrightfast-sandbox.git"
+		"url":"https://github.com/runrightfast/runrightfast-logging-service.git"
 	},
 	"scripts":{
-		"start":"node server/server.js",
 		"blanket":{
 			"pattern":[
 				"lib"
