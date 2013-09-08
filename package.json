@@ -1,0 +1,32 @@
+{
+	"name":"runrightfast-sandbox",
+	"version":"0.0.1",
+	"description":"RunRightFast sandbox project, which is used for experimentation",
+	"repository":{
+		"type":"git",
+		"url":"https://github.com/runrightfast/runrightfast-sandbox.git"
+	},
+	"scripts":{
+		"start":"node server/server.js",
+		"blanket":{
+			"pattern":[
+				"lib"
+			]
+		}		
+	},
+	"author":"Alfio Zappala",
+	"license":"Apache v2",
+	"dependencies":{		
+		"uuid":"1.4.1"
+	},
+	"devDependencies":{
+		"grunt":"~0.4.1",
+		"grunt-jslint":"~1.0.0",
+		"mocha":"~1.12.1",
+		"chai":"~1.7.2",
+		"sinon":"~1.7.3",
+		"sinon-chai":"~2.4.0",
+		"grunt-mocha-cov":"~0.0.7",
+		"grunt-contrib-clean":"~0.5.0"
+	}
+}
