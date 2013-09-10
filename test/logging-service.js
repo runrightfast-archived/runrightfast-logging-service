@@ -197,6 +197,23 @@ describe("LoggingService", function() {
 
 	});
 
+	it("badEvent logger can handle events that can't be stringified", function() {
+		var loggingService = require('../lib')();
+
+		var eventData = {
+			that : this
+		};
+
+		loggingService.log({
+			data : eventData
+		});
+
+		loggingService.log({
+			tags : [ 'info' ]
+		});
+
+	});
+
 	it("options.logListener must be a function if specified", function() {
 		try {
 			require('../lib')({
