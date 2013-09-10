@@ -9,6 +9,9 @@ Logging Service Module
  - data - OPTIONAL - any object
  - ts - OPTIONAL - event timestamp as a Date object
 - Invalid events are rejected and triggers a 'badEvent' to be emitted to be handled by the badEventListener
+- additional properties:
+ - eventCount - total number of valid events received
+ - invalidEventCount - total number invalid events received
 
 
 ```
