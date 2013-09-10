@@ -26,6 +26,8 @@ module.exports = function(grunt) {
 					todo : true,
 					white : true,
 					vars : true,
+					nomen : true,
+					plusplus: true,
 					predef : [ 'describe', 'it' ]
 				},
 				options : {
