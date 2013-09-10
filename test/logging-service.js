@@ -11,7 +11,7 @@ describe("LoggingService", function() {
 			data : 'LoggingService can log events to console when no options are specified'
 		};
 		loggingService.log(event);
-		expect(loggingService.getInvalidEventCount()).to.equal(0);
+		expect(loggingService.invalidEventCount).to.equal(0);
 
 		for ( var i = 0; i < 10; i++) {
 			loggingService.log({
@@ -22,23 +22,23 @@ describe("LoggingService", function() {
 			});
 		}
 
-		expect(loggingService.getInvalidEventCount()).to.equal(0);
-		expect(loggingService.getEventCount()).to.gt(0);
+		expect(loggingService.invalidEventCount).to.equal(0);
+		expect(loggingService.eventCount).to.gt(0);
 	});
 
 	it("can emit events to a registered log listener that was specified in the config options", function(done) {
 		var options = {
 			logListener : function(event) {
 				console.log(JSON.stringify(event));
-				expect(this.getEventCount()).to.equal(1);
+				expect(this.eventCount).to.equal(1);
 				done();
 			}
 		};
 
 		var loggingService = require('../lib')(options);
 
-		expect(loggingService.getEventCount()).to.equal(0);
-		expect(loggingService.getInvalidEventCount()).to.equal(0);
+		expect(loggingService.eventCount).to.equal(0);
+		expect(loggingService.invalidEventCount).to.equal(0);
 
 		var event = {
 			tags : [ 'info' ],
@@ -46,7 +46,7 @@ describe("LoggingService", function() {
 		};
 		loggingService.log(event);
 
-		expect(loggingService.getInvalidEventCount()).to.equal(0);
+		expect(loggingService.invalidEventCount).to.equal(0);
 
 	});
 
@@ -66,15 +66,15 @@ describe("LoggingService", function() {
 					console.log(badEvent);
 				}
 
-				expect(loggingService.getInvalidEventCount()).to.equal(1);
+				expect(loggingService.invalidEventCount).to.equal(1);
 				done();
 			}
 		};
 
 		var loggingService = require('../lib')(options);
 
-		expect(loggingService.getEventCount()).to.equal(0);
-		expect(loggingService.getInvalidEventCount()).to.equal(0);
+		expect(loggingService.eventCount).to.equal(0);
+		expect(loggingService.invalidEventCount).to.equal(0);
 
 		var event = {};
 		loggingService.log(event);
@@ -96,15 +96,15 @@ describe("LoggingService", function() {
 					console.log(badEvent);
 				}
 
-				expect(loggingService.getInvalidEventCount()).to.equal(1);
+				expect(loggingService.invalidEventCount).to.equal(1);
 				done();
 			}
 		};
 
 		var loggingService = require('../lib')(options);
 
-		expect(loggingService.getEventCount()).to.equal(0);
-		expect(loggingService.getInvalidEventCount()).to.equal(0);
+		expect(loggingService.eventCount).to.equal(0);
+		expect(loggingService.invalidEventCount).to.equal(0);
 
 		var event = {
 			tags : []
@@ -116,15 +116,15 @@ describe("LoggingService", function() {
 		var options = {
 			logListener : function(event) {
 				console.log(JSON.stringify(event));
-				expect(this.getEventCount()).to.equal(1);
+				expect(this.eventCount).to.equal(1);
 				done();
 			}
 		};
 
 		var loggingService = require('../lib')(options);
 
-		expect(loggingService.getEventCount()).to.equal(0);
-		expect(loggingService.getInvalidEventCount()).to.equal(0);
+		expect(loggingService.eventCount).to.equal(0);
+		expect(loggingService.invalidEventCount).to.equal(0);
 
 		// invalid event
 		loggingService.log({});
@@ -132,7 +132,7 @@ describe("LoggingService", function() {
 		loggingService.log({
 			tags : [ 'info' ]
 		});
-		expect(loggingService.getInvalidEventCount()).to.equal(1);
+		expect(loggingService.invalidEventCount).to.equal(1);
 	});
 
 	it("will throw an error if event is undefined", function() {
@@ -170,8 +170,8 @@ describe("LoggingService", function() {
 
 		var loggingService = require('../lib')(options);
 
-		expect(loggingService.getEventCount()).to.equal(0);
-		expect(loggingService.getInvalidEventCount()).to.equal(0);
+		expect(loggingService.eventCount).to.equal(0);
+		expect(loggingService.invalidEventCount).to.equal(0);
 
 		var event = {
 			tags : [ 'info' ],
@@ -180,7 +180,7 @@ describe("LoggingService", function() {
 		};
 		loggingService.log(event);
 
-		expect(loggingService.getInvalidEventCount()).to.equal(0);
+		expect(loggingService.invalidEventCount).to.equal(0);
 	});
 
 	it("default logger can handle events that can't be stringified", function() {
