@@ -42,7 +42,7 @@ module.exports = function(grunt) {
 			coverage : {
 				options : {
 					reporter : 'html-cov',
-					output : "out/coverage.html"
+					output : "out/coverage.html"					
 				}
 			},
 			test : {
