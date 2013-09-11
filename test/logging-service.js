@@ -23,14 +23,17 @@ describe("LoggingService", function() {
 		}
 
 		expect(loggingService.invalidEventCount).to.equal(0);
-		expect(loggingService.eventCount).to.gt(0);
+		expect(loggingService.eventCount).to.be.gt(0);
 	});
 
 	it("can emit events to a registered log listener that was specified in the config options", function(done) {
+		var logListenerInvocationCount = 0;
+
 		var options = {
 			logListener : function(event) {
 				console.log(JSON.stringify(event));
 				expect(this.eventCount).to.equal(1);
+				logListenerInvocationCount++;
 				done();
 			}
 		};
@@ -45,14 +48,14 @@ describe("LoggingService", function() {
 			data : 'LoggingService can emit events to a registered log listener that was specified in the config options'
 		};
 		loggingService.log(event);
-
+		expect(logListenerInvocationCount).to.equal(1);
 		expect(loggingService.invalidEventCount).to.equal(0);
 
 	});
 
 	it("can log events objects that only have a tags property", function(done) {
 		var options = {
-			badEventListener : function(event, e) {
+			invalidEventListener : function(event, e) {
 				var badEvent = {
 					ts : new Date(),
 					event : 'badEvent',
@@ -82,7 +85,7 @@ describe("LoggingService", function() {
 
 	it("the event.tags must have at least 1 tag", function(done) {
 		var options = {
-			badEventListener : function(event, e) {
+			invalidEventListener : function(event, e) {
 				var badEvent = {
 					ts : new Date(),
 					event : 'badEvent',
@@ -225,10 +228,10 @@ describe("LoggingService", function() {
 		}
 	});
 
-	it("options.badEventListener must be a function if specified", function() {
+	it("options.invalidEventListener must be a function if specified", function() {
 		try {
 			require('../lib')({
-				badEventListener : {}
+				invalidEventListener : {}
 			});
 			throw new Error('expected an Error to be thrown because no event.tags were specified');
 		} catch (error) {
