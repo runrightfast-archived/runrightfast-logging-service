@@ -16,6 +16,7 @@
 'use strict';
 
 var expect = require('chai').expect;
+var lodash = require('lodash');
 
 describe("LoggingService", function() {
 
@@ -270,6 +271,23 @@ describe("LoggingService", function() {
 		} catch (error) {
 			// expected
 		}
+	});
+
+	describe('validateEvent', function() {
+		it('is composable - meaning it returns the event if the event is valid', function() {
+			var loggingService = require('../lib')();
+			var stringify = lodash.compose(function(event) {
+				return JSON.stringify(event);
+			}, lodash.bind(loggingService.validateEvent, loggingService));
+
+			var event = {
+				tags : [ 'info' ],
+				data : "message"
+			};
+			var json = stringify(event);
+
+			expect(json).to.equal(JSON.stringify(event));
+		});
 	});
 
 });
