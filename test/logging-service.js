@@ -29,7 +29,7 @@ describe("LoggingService", function() {
 		loggingService.log(event);
 		expect(loggingService.invalidEventCount).to.equal(0);
 
-		for ( var i = 0; i < 10; i++) {
+		for ( var i = 0; i < 3; i++) {
 			loggingService.log({
 				tags : [ 'info' ],
 				data : {
@@ -287,6 +287,21 @@ describe("LoggingService", function() {
 			var json = stringify(event);
 
 			expect(json).to.equal(JSON.stringify(event));
+		});
+
+		it('validates that the ts is either a parsable Date string, a number representing EPOCH time, or a Date object', function() {
+			var loggingService = require('../lib')();
+
+			var event = {
+				tags : [ 'info' ],
+				data : "message",
+				ts : new Date()
+			};
+
+			loggingService.validateEvent(event);
+			loggingService.validateEvent(JSON.parse(JSON.stringify(event)));
+			event.ts = Date.now;
+			loggingService.validateEvent(JSON.parse(JSON.stringify(event)));
 		});
 	});
 
