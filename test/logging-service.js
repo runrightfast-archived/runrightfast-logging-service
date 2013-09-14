@@ -300,10 +300,16 @@ describe("LoggingService", function() {
 
 			loggingService.validateEvent(event);
 			loggingService.validateEvent(JSON.parse(JSON.stringify(event)));
-			event.ts = Date.now;
+			event = {
+				tags : [ 'info' ],
+				data : "message",
+				ts : Date.now()
+			};
+			console.log('Date.now = ' + Date.now);
+			console.log('event with ts set to EPOCH time: ' + JSON.stringify(event));
 			loggingService.validateEvent(JSON.parse(JSON.stringify(event)));
 		});
-		
+
 		it('adds a uuid property', function() {
 			var loggingService = require('../lib')();
 

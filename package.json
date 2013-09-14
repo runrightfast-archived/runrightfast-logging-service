@@ -10,7 +10,7 @@
 	"scripts":{
 		"blanket":{
 			"pattern":[
-				"lib"
+				"lib/logging-service.js"
 			]
 		}		
 	},
