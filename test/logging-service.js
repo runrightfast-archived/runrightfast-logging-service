@@ -303,6 +303,20 @@ describe("LoggingService", function() {
 			event.ts = Date.now;
 			loggingService.validateEvent(JSON.parse(JSON.stringify(event)));
 		});
+		
+		it('adds a uuid property', function() {
+			var loggingService = require('../lib')();
+
+			var event = {
+				tags : [ 'info' ],
+				data : "message",
+				ts : new Date()
+			};
+
+			event = loggingService.validateEvent(event);
+			expect(event.uuid).to.exist;
+			console.log('event.uuid type = ' + (typeof event.uuid));
+		});
 	});
 
 });
