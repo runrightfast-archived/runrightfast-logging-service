@@ -87,6 +87,39 @@ describe("LoggingService", function() {
 
 	});
 
+	it("can plugin a postValidate function that was specified in the config options", function(done) {
+		var os = require('os');
+		var logListenerInvocationCount = 0;
+
+		var options = {
+			logListener : function(event) {
+				console.log(JSON.stringify(event));
+				expect(this.eventCount).to.equal(1);
+				expect(event.host).to.equal(os.hostname());
+				logListenerInvocationCount++;
+				done();
+			},
+			postValidate : function(event) {
+				event.host = os.hostname();
+				return event;
+			}
+		};
+
+		var loggingService = require('../lib')(options);
+
+		expect(loggingService.eventCount).to.equal(0);
+		expect(loggingService.invalidEventCount).to.equal(0);
+
+		var event = {
+			tags : [ 'info' ],
+			data : 'LoggingService can emit events to a registered log listener that was specified in the config options'
+		};
+		loggingService.log(event);
+		expect(logListenerInvocationCount).to.equal(1);
+		expect(loggingService.invalidEventCount).to.equal(0);
+
+	});
+
 	it("can log events objects that only have a tags property", function(done) {
 		var options = {
 			invalidEventListener : function(event, e) {
