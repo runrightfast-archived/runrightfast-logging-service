@@ -1,6 +1,6 @@
 {
 	"name":"runrightfast-logging-service",
-	"version":"0.0.7",
+	"version":"0.0.8",
 	"description":"RunRightFast Logging Service",
 	"repository":{
 		"type":"git",
@@ -18,7 +18,7 @@
 	"license":"Apache v2",
 	"dependencies":{
 		"lodash":"2.0.0",
-		"hoek":"1.0.0",
+		"hoek":"1.0.3",
 		"uuid":"1.4.1"
 	},
 	"devDependencies":{
