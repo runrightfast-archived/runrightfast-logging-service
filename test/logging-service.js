@@ -42,6 +42,41 @@ describe("LoggingService", function() {
 		expect(loggingService.eventCount).to.be.gt(0);
 	});
 
+	it("logLevel is a config option and can be configured to DEBUG", function() {
+		var loggingService = require('../lib')({
+			logLevel : 'DEBUG'
+		});
+		var event = {
+			tags : [ 'info' ],
+			data : 'LoggingService can log events to console when no options are specified'
+		};
+		loggingService.log(event);
+		expect(loggingService.invalidEventCount).to.equal(0);
+
+		for ( var i = 0; i < 3; i++) {
+			loggingService.log({
+				tags : [ 'info' ],
+				data : {
+					i : i
+				}
+			});
+		}
+
+		expect(loggingService.invalidEventCount).to.equal(0);
+		expect(loggingService.eventCount).to.be.gt(0);
+	});
+
+	it("invalid logLevel config options will be rejected", function(done) {
+		try {
+			require('../lib')({
+				logLevel : 'INVALID_LOG_LEVEL'
+			});
+			done(new Error('Expected an error because logLevel was invalid'));
+		} catch (error) {
+			done();
+		}
+	});
+
 	it('can accept null options', function() {
 		var loggingService = require('../lib')(null);
 		loggingService.log({
@@ -117,6 +152,20 @@ describe("LoggingService", function() {
 		loggingService.log(event);
 		expect(logListenerInvocationCount).to.equal(1);
 		expect(loggingService.invalidEventCount).to.equal(0);
+
+	});
+
+	it("the postValidate config option must be a function, otherwise it causes the module not to load", function(done) {
+		var options = {
+			postValidate : 2
+		};
+
+		try {
+			require('../lib')(options);
+			done(new Error('Expected an error because options.postValidate is not a Function'));
+		} catch (error) {
+			done();
+		}
 
 	});
 
