@@ -1,6 +1,6 @@
 {
 	"name":"runrightfast-logging-service",
-	"version":"0.0.11",
+	"version":"0.0.12",
 	"description":"RunRightFast Logging Service",
 	"repository":{
 		"type":"git",
@@ -20,7 +20,8 @@
 		"lodash":"2.0.0",
 		"hoek":"1.0.3",
 		"uuid":"1.4.1",
-		"log4js":"0.6.8"
+		"log4js":"0.6.8",
+		"runrightfast-commons":"git://github.com/runrightfast/runrightfast-commons.git#0.0.4"
 	},
 	"devDependencies":{
 		"grunt":"~0.4.1",
