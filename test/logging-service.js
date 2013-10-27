@@ -29,7 +29,7 @@ describe("LoggingService", function() {
 		loggingService.log(event);
 		expect(loggingService.invalidEventCount).to.equal(0);
 
-		for ( var i = 0; i < 3; i++) {
+		for (var i = 0; i < 3; i++) {
 			loggingService.log({
 				tags : [ 'info' ],
 				data : {
@@ -53,7 +53,7 @@ describe("LoggingService", function() {
 		loggingService.log(event);
 		expect(loggingService.invalidEventCount).to.equal(0);
 
-		for ( var i = 0; i < 3; i++) {
+		for (var i = 0; i < 3; i++) {
 			loggingService.log({
 				tags : [ 'info' ],
 				data : {
@@ -392,7 +392,7 @@ describe("LoggingService", function() {
 			loggingService.validateEvent(JSON.parse(JSON.stringify(event)));
 		});
 
-		it('adds a uuid property', function() {
+		it('adds an id property', function() {
 			var loggingService = require('../lib')();
 
 			var event = {
@@ -402,8 +402,8 @@ describe("LoggingService", function() {
 			};
 
 			event = loggingService.validateEvent(event);
-			expect(event.uuid).to.exist;
-			console.log('event.uuid type = ' + (typeof event.uuid));
+			expect(event.id).to.exist;
+			console.log('event.id type = ' + (typeof event.id));
 		});
 	});
 
